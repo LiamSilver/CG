@@ -1,0 +1,16 @@
+//---------------------------------------------------------------------------
+#pragma hdrstop
+
+#include "displayFile.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+void displayFile::mostra(TListBox* lbx){
+
+	lbx->Items->Clear();
+
+	for (int i = 0; i < poligonos.size(); i++) {
+
+	}
+
+}

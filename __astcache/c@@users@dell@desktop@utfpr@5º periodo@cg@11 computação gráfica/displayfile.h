@@ -1,0 +1,19 @@
+﻿//---------------------------------------------------------------------------
+
+#ifndef displayFileH
+#define displayFileH
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Graphics.hpp>
+#include <vector>
+#include "uPoligono.cpp"
+
+class displayFile{
+	public:
+		std::vector <Poligono> poligonos;
+
+		 void mostra(TListBox* lbx);
+		 void desenha(TCanvas* canvas, Janela mundo, Janela vp);
+
+};
+//---------------------------------------------------------------------------
+#endif

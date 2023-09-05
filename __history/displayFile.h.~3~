@@ -1,0 +1,13 @@
+//---------------------------------------------------------------------------
+
+#ifndef displayFileH
+#define displayFileH
+#include <vector>
+#include "uPoligono.cpp"
+
+class displayFile{
+	public:
+		std::vector <Poligono> poligonos;
+};
+//---------------------------------------------------------------------------
+#endif
