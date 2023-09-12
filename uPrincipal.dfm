@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'frmPrincipal'
-  ClientHeight = 686
-  ClientWidth = 1101
+  ClientHeight = 676
+  ClientWidth = 1174
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -41,29 +41,29 @@ object frmPrincipal: TfrmPrincipal
     Caption = 'Poligonos'
   end
   object lblXmin: TLabel
-    Left = 536
-    Top = 434
+    Left = 840
+    Top = 210
     Width = 52
     Height = 15
     Caption = 'X Minimo'
   end
   object lblYmin: TLabel
-    Left = 536
-    Top = 521
+    Left = 840
+    Top = 281
     Width = 52
     Height = 15
     Caption = 'Y Minimo'
   end
   object lblXmax: TLabel
-    Left = 720
-    Top = 434
+    Left = 988
+    Top = 210
     Width = 54
     Height = 15
     Caption = 'X Maximo'
   end
   object lblYmax: TLabel
-    Left = 720
-    Top = 521
+    Left = 988
+    Top = 281
     Width = 54
     Height = 15
     Caption = 'Y Maximo'
@@ -94,8 +94,8 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 1
   end
   object btnPoligono: TButton
-    Left = 536
-    Top = 368
+    Left = 840
+    Top = 355
     Width = 96
     Height = 41
     Caption = 'Inicia Poligono'
@@ -112,101 +112,101 @@ object frmPrincipal: TfrmPrincipal
     OnClick = lbPoligonosClick
   end
   object edXmin: TEdit
-    Left = 536
-    Top = 455
-    Width = 121
+    Left = 840
+    Top = 231
+    Width = 105
     Height = 23
     TabOrder = 4
     Text = '-250'
   end
   object edXmax: TEdit
-    Left = 720
-    Top = 455
-    Width = 121
+    Left = 988
+    Top = 231
+    Width = 93
     Height = 23
     TabOrder = 5
     Text = '250'
   end
   object edYmax: TEdit
-    Left = 720
-    Top = 542
-    Width = 121
+    Left = 988
+    Top = 302
+    Width = 93
     Height = 23
     TabOrder = 6
     Text = '250'
   end
   object edYmin: TEdit
-    Left = 536
-    Top = 542
-    Width = 121
+    Left = 840
+    Top = 302
+    Width = 105
     Height = 23
     TabOrder = 7
     Text = '-250'
   end
   object btnAtualizaMundo: TButton
-    Left = 720
-    Top = 368
+    Left = 988
+    Top = 355
     Width = 99
     Height = 41
     Caption = 'Atualiza Mundo'
     TabOrder = 8
     OnClick = btnAtualizaMundoClick
   end
-  object btnPrimeiroQuadrante: TButton
-    Left = 864
-    Top = 446
-    Width = 96
+  object btnEsquerda: TButton
+    Left = 536
+    Top = 393
+    Width = 95
     Height = 41
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    Caption = '1'#186' Quadrante'
+    Caption = '<'
     TabOrder = 9
-    OnClick = btnPrimeiroQuadranteClick
+    OnClick = btnEsquerdaClick
   end
-  object btnSegundoQuadrante: TButton
-    Left = 988
-    Top = 446
+  object btnDireita: TButton
+    Left = 684
+    Top = 393
     Width = 93
     Height = 41
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    Caption = '2'#186' Quadrante'
+    Caption = '>'
     TabOrder = 10
-    OnClick = btnSegundoQuadranteClick
+    OnClick = btnDireitaClick
   end
-  object btnTerceiroQuadrante: TButton
-    Left = 864
-    Top = 533
-    Width = 96
+  object btnCima: TButton
+    Left = 626
+    Top = 355
+    Width = 63
     Height = 41
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    Caption = '3'#186' Quadrante'
+    Caption = '^'
     TabOrder = 11
-    OnClick = btnTerceiroQuadranteClick
+    OnClick = btnCimaClick
   end
-  object btnQuartoQuadrante: TButton
-    Left = 988
-    Top = 533
-    Width = 93
+  object btnBaixo: TButton
+    Left = 626
+    Top = 393
+    Width = 63
     Height = 41
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    Caption = '4'#186' Quadrante'
+    Caption = 'v'
     TabOrder = 12
-    OnClick = btnQuartoQuadranteClick
+    OnClick = btnBaixoClick
   end
   object btnZoomIn: TButton
-    Left = 865
-    Top = 368
+    Left = 536
+    Top = 355
     Width = 95
     Height = 41
     Margins.Left = 4
@@ -218,8 +218,8 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnZoomInClick
   end
   object btnZoomOut: TButton
-    Left = 988
-    Top = 368
+    Left = 684
+    Top = 355
     Width = 93
     Height = 41
     Margins.Left = 4
@@ -233,7 +233,7 @@ object frmPrincipal: TfrmPrincipal
   object rgTipoReta: TRadioGroup
     Left = 536
     Top = 224
-    Width = 501
+    Width = 241
     Height = 105
     Caption = 'Tipo de Reta'
     ItemIndex = 0
@@ -243,5 +243,18 @@ object frmPrincipal: TfrmPrincipal
       'Bresenham')
     TabOrder = 15
     OnClick = rgTipoRetaClick
+  end
+  object btnCircunferencia: TButton
+    Left = 536
+    Top = 463
+    Width = 241
+    Height = 47
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Criar Circunfer'#234'ncia'
+    TabOrder = 16
+    OnClick = btnCircunferenciaClick
   end
 end

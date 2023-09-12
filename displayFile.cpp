@@ -21,7 +21,7 @@ void displayFile::desenha(TCanvas* canvas, Janela mundo, Janela vp, int tipoReta
 	canvas->FillRect(Rect(0,0,500,500));
 
 	canvas->Pen->Color = clBlack;
-	canvas->Pen->Width = 2;
+	canvas->Pen->Width = 4;
 
 		for (int i = 0; i < poligonos.size(); i++) {
         poligonos[i].desenha(canvas, mundo, vp, tipoReta);
