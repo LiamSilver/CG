@@ -20,6 +20,7 @@ class Ponto{
 	int calcularCohenY(Janela clipping);
 	AnsiString mostra();
 
+
     //TranslatarPontos
 };
 #endif

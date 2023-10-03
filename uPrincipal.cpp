@@ -318,22 +318,28 @@ void __fastcall TfrmPrincipal::btnReflexaoClick(TObject* Sender)
 
 void __fastcall TfrmPrincipal::btnClippingClick(TObject* Sender)
 {
-	int* contador = &contId;
-	display.clipping(clipping, &contador);
-	display.mostra(lbPoligonos);
-	display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+    int* contador = &contId;
+    display.clipping(clipping, &contador);
+    display.mostra(lbPoligonos);
+    display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TfrmPrincipal::btnCasteljauClick(TObject* Sender)
 {
-	if (display.poligonos[lbPoligonos->ItemIndex].qtdPontos() == 3 &&
-		display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
-	{
-		pol.id = contId++;
-		pol.tipo = 'B';
-		pol.casteljau(display.poligonos[lbPoligonos->ItemIndex]);
-		display.poligonos.push_back(pol);
+    if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 3 &&
+        display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
+    {
+        Poligono* polAux = new Poligono();
+        polAux = &display.poligonos[lbPoligonos->ItemIndex];
+        pol.id = contId++;
+        pol.tipo = 'B';
+        pol.casteljau(&polAux);
+        display.poligonos.push_back(pol);
+        pol.pontos.clear();
+
+        display.mostra(lbPoligonos);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
 
     } else {
         ShowMessage("Selecione um poligono com 3 pontos");

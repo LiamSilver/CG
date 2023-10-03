@@ -275,25 +275,24 @@ void Poligono::clipping(Janela clipping, Poligono** pol)
 
             if (cohen1 == 0) {
                 aux->pontos.push_back(pontos[i]);
-			} else {
-				pontoAux = calculaInterseccao(
-					clipping, cohen1, pontos[i].x, pontos[i].y, m);
-//				if (pontoAux.calcularCohen(clipping) == 0)
-					aux->pontos.push_back(pontoAux);
-			}
+            } else {
+                pontoAux = calculaInterseccao(
+                    clipping, cohen1, pontos[i].x, pontos[i].y, m);
+                //				if (pontoAux.calcularCohen(clipping) == 0)
+                aux->pontos.push_back(pontoAux);
+            }
 
-			if (cohen2 == 0) {
-				aux->pontos.push_back(pontos[i + 1]);
-			} else {
-				pontoAux = calculaInterseccao(
-					clipping, cohen2, pontos[i + 1].x, pontos[i + 1].y, m);
+            if (cohen2 == 0) {
+                aux->pontos.push_back(pontos[i + 1]);
+            } else {
+                pontoAux = calculaInterseccao(
+                    clipping, cohen2, pontos[i + 1].x, pontos[i + 1].y, m);
 
-//                if (pontoAux.calcularCohen(clipping) == 0)
-                    aux->pontos.push_back(pontoAux);
+                //                if (pontoAux.calcularCohen(clipping) == 0)
+                aux->pontos.push_back(pontoAux);
             }
         }
-	}
-
+    }
 }
 
 Ponto Poligono::calculaInterseccao(
@@ -309,25 +308,55 @@ Ponto Poligono::calculaInterseccao(
     } else if (cohen & 1) {
         pontoAux.x = clipping.xMin;
         pontoAux.y = y + m * (clipping.xMin - x);
-    } else if (cohen & 2) {
-        pontoAux.x = clipping.xMax;
-        pontoAux.y = y + m * (clipping.xMax - x);
-    }
+	} else if (cohen & 2) {
+		pontoAux.x = clipping.xMax;
+		pontoAux.y = y + m * (clipping.xMax - x);
+	}
 
-    return pontoAux;
+	return pontoAux;
 }
 
-void Poligono::casteljau(Poligono pol){
+void Poligono::casteljau(Poligono** pol)
+{
+	Ponto p0 = (*pol)->pontos[0], p1 = (*pol)->pontos[1],
+		  p2 = (*pol)->pontos[2];
 
+	pontos.push_back(p0);
+
+	casteljauRecursivo(p0, p1, p2);
 }
 
+void Poligono::casteljauRecursivo(Ponto p0, Ponto p1, Ponto p2)
+{
+	double dx, dy, diferenca;
+	dx = pow((p2.x - p0.x), 2);
+	dy = pow((p2.y - p0.y), 2);
+	diferenca = sqrt(dx + dy);
 
-void Poligono::casteljauRecursivo(Ponto p0, Ponto p1, Ponto p2, Poligono** pol) {
+	if (diferenca < 1) {
+		pontos.push_back(p2);
+	}
+
+	else
+	{
+		Ponto a, b, c;
+		a = calculaPontoMedio(p0, p1);
+		b = calculaPontoMedio(p1, p2);
+		c = calculaPontoMedio(a, b);
+
+		casteljauRecursivo(p0, a, b);
+		casteljauRecursivo(b, c, p2);
+	}
+}
+
+Ponto Poligono::calculaPontoMedio(Ponto a, Ponto b)
+{
+	return Ponto((a.x + b.x) / 2, (a.y + b.y) / 2);
 }
 
 AnsiString Poligono::toString()
 {
-	return IntToStr(id) + " - " + tipo + " - " + IntToStr((int)pontos.size()) +
-		   " pontos";
+    return IntToStr(id) + " - " + tipo + " - " + IntToStr((int)pontos.size()) +
+           " pontos";
 }
 

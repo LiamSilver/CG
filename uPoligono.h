@@ -34,9 +34,10 @@ class Poligono
     double calcularCentroPoligonoX();
     double calcularCentroPoligonoY();
  
-    void casteljau(Poligono pol);
-	void casteljauRecursivo(Ponto p0, Ponto p1, Ponto p2,Poligono** pol);
-	
+    void casteljau(Poligono** pol);
+	void casteljauRecursivo(Ponto p0, Ponto p1, Ponto p2);
+
+    Ponto calculaPontoMedio(Ponto a, Ponto b);
 	void clipping(Janela clipping, Poligono** pol);
 	Ponto calculaInterseccao(
 		Janela clipping, int cohen, int x, int y, double m);
