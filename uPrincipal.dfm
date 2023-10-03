@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'frmPrincipal'
-  ClientHeight = 676
-  ClientWidth = 1174
+  ClientHeight = 629
+  ClientWidth = 1136
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -95,8 +95,8 @@ object frmPrincipal: TfrmPrincipal
   end
   object btnPoligono: TButton
     Left = 840
-    Top = 355
-    Width = 96
+    Top = 371
+    Width = 121
     Height = 41
     Caption = 'Inicia Poligono'
     TabOrder = 2
@@ -144,9 +144,9 @@ object frmPrincipal: TfrmPrincipal
     Text = '-250'
   end
   object btnAtualizaMundo: TButton
-    Left = 988
-    Top = 355
-    Width = 99
+    Left = 960
+    Top = 371
+    Width = 121
     Height = 41
     Caption = 'Atualiza Mundo'
     TabOrder = 8
@@ -154,8 +154,8 @@ object frmPrincipal: TfrmPrincipal
   end
   object btnEsquerda: TButton
     Left = 536
-    Top = 393
-    Width = 95
+    Top = 409
+    Width = 97
     Height = 41
     Margins.Left = 4
     Margins.Top = 4
@@ -166,9 +166,9 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnEsquerdaClick
   end
   object btnDireita: TButton
-    Left = 684
-    Top = 393
-    Width = 93
+    Left = 688
+    Top = 409
+    Width = 89
     Height = 41
     Margins.Left = 4
     Margins.Top = 4
@@ -180,7 +180,7 @@ object frmPrincipal: TfrmPrincipal
   end
   object btnCima: TButton
     Left = 626
-    Top = 355
+    Top = 371
     Width = 63
     Height = 41
     Margins.Left = 4
@@ -193,7 +193,7 @@ object frmPrincipal: TfrmPrincipal
   end
   object btnBaixo: TButton
     Left = 626
-    Top = 393
+    Top = 409
     Width = 63
     Height = 41
     Margins.Left = 4
@@ -206,8 +206,8 @@ object frmPrincipal: TfrmPrincipal
   end
   object btnZoomIn: TButton
     Left = 536
-    Top = 355
-    Width = 95
+    Top = 371
+    Width = 97
     Height = 41
     Margins.Left = 4
     Margins.Top = 4
@@ -218,9 +218,9 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnZoomInClick
   end
   object btnZoomOut: TButton
-    Left = 684
-    Top = 355
-    Width = 93
+    Left = 688
+    Top = 371
+    Width = 89
     Height = 41
     Margins.Left = 4
     Margins.Top = 4
@@ -245,10 +245,10 @@ object frmPrincipal: TfrmPrincipal
     OnClick = rgTipoRetaClick
   end
   object btnCircunferencia: TButton
-    Left = 536
-    Top = 463
-    Width = 241
-    Height = 47
+    Left = 840
+    Top = 409
+    Width = 121
+    Height = 41
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -256,5 +256,87 @@ object frmPrincipal: TfrmPrincipal
     Caption = 'Criar Circunfer'#234'ncia'
     TabOrder = 16
     OnClick = btnCircunferenciaClick
+  end
+  object btnTranslacao2D: TButton
+    Left = 960
+    Top = 409
+    Width = 121
+    Height = 41
+    Caption = 'Transla'#231#227'o 2D'
+    TabOrder = 17
+    OnClick = btnTranslacao2DClick
+  end
+  object btnEscalonamento: TButton
+    Left = 840
+    Top = 467
+    Width = 121
+    Height = 42
+    Caption = 'Escalonamento'
+    TabOrder = 18
+    OnClick = btnEscalonamentoClick
+  end
+  object btnRotacao: TButton
+    Left = 960
+    Top = 467
+    Width = 121
+    Height = 42
+    Caption = 'Rota'#231#227'o'
+    TabOrder = 19
+    OnClick = btnRotacaoClick
+  end
+  object btnReflexao: TButton
+    Left = 840
+    Top = 503
+    Width = 121
+    Height = 42
+    Caption = 'Reflexao'
+    TabOrder = 20
+    OnClick = btnReflexaoClick
+  end
+  object btnClipping: TButton
+    Left = 960
+    Top = 503
+    Width = 121
+    Height = 42
+    Caption = 'Clipping'
+    TabOrder = 21
+    OnClick = btnClippingClick
+  end
+  object btnBezier: TButton
+    Left = 536
+    Top = 472
+    Width = 81
+    Height = 37
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'B'#233'zier'
+    TabOrder = 22
+  end
+  object btnCasteljau: TButton
+    Left = 614
+    Top = 472
+    Width = 86
+    Height = 37
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Casteljau'
+    TabOrder = 23
+    OnClick = btnCasteljauClick
+  end
+  object btnHermite: TButton
+    Left = 700
+    Top = 472
+    Width = 77
+    Height = 37
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Hermite'
+    TabOrder = 24
   end
 end

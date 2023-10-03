@@ -9,6 +9,7 @@
 #include <Vcl.ExtCtrls.hpp>
 #include <System.Classes.hpp>
 #include <Vcl.ComCtrls.hpp>
+#include <Vcl.NumberBox.hpp>
 //---------------------------------------------------------------------------
 class TfrmPrincipal : public TForm
 {
@@ -38,6 +39,12 @@ __published:	// IDE-managed Components
 	TButton *btnZoomIn;
 	TButton *btnZoomOut;
 	TRadioGroup *rgTipoReta;
+	TButton *btnCircunferencia;
+	TButton *btnTranslacao2D;
+	TButton *btnEscalonamento;
+	TButton *btnRotacao;
+	TButton *btnReflexao;
+	TButton *btnClipping;
 	void __fastcall Image1MouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
 	void __fastcall Image1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
           int X, int Y);
@@ -51,6 +58,12 @@ __published:	// IDE-managed Components
 	void __fastcall btnZoomInClick(TObject *Sender);
 	void __fastcall btnZoomOutClick(TObject *Sender);
 	void __fastcall rgTipoRetaClick(TObject *Sender);
+	void __fastcall btnCircunferenciaClick(TObject *Sender);
+	void __fastcall btnTranslacao2DClick(TObject *Sender);
+	void __fastcall btnEscalonamentoClick(TObject *Sender);
+	void __fastcall btnRotacaoClick(TObject *Sender);
+	void __fastcall btnReflexaoClick(TObject *Sender);
+	void __fastcall btnClippingClick(TObject *Sender);
 
 private:	// User declarations
 public:		// User declarations

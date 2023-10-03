@@ -13,6 +13,7 @@ class displayFile{
 
 		 void mostra(TListBox* lbx);
 		 void desenha(TCanvas* canvas, Janela mundo, Janela vp, int tipoReta);
+         void clipping(Janela clipping, int contId);
 
 };
 //---------------------------------------------------------------------------

@@ -25,6 +25,20 @@ int Ponto::yW2Vp(Janela mundo, Janela vp){
 	return (1 - (y - mundo.yMin) / (mundo.yMax - mundo.yMin)) * (vp.yMax - vp.yMin);
 }
 
+int Ponto::calcularCohen(Janela clipping){
+
+	if(x<clipping.xMin)
+	cohen+=1;
+	else if(x>clipping.xMax)
+	cohen+=2;
+
+	if(y<clipping.yMin)
+	cohen +=8;
+	else if(y>clipping.yMax)
+	cohen +=4;
+
+    return cohen;
+}
 AnsiString Ponto::mostra(){
 	return "(" + FloatToStr(x) + ", " + FloatToStr(y) + ")";
 };

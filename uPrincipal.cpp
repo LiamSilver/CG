@@ -13,6 +13,8 @@
 TfrmPrincipal* frmPrincipal;
 Janela mundo(-250, -250, 250, 250);
 Janela vp(0, 0, 500, 500);
+Janela clipping(mundo.xMin / 2, mundo.yMin / 2, mundo.xMax / 2, mundo.yMax / 2);
+
 Ponto aux;
 Poligono pol;
 displayFile display;
@@ -55,6 +57,17 @@ __fastcall TfrmPrincipal::TfrmPrincipal(TComponent* Owner) : TForm(Owner)
     display.poligonos.push_back(pol);
     pol.pontos.clear();
 
+    pol.tipo = 'R';
+    pol.id = contId++;
+
+    pol.pontos.push_back(Ponto(clipping.xMin, clipping.yMin));
+    pol.pontos.push_back(Ponto(clipping.xMin, clipping.yMax));
+    pol.pontos.push_back(Ponto(clipping.xMax, clipping.yMax));
+    pol.pontos.push_back(Ponto(clipping.xMax, clipping.yMin));
+    pol.pontos.push_back(Ponto(clipping.xMin, clipping.yMin));
+    display.poligonos.push_back(pol);
+    pol.pontos.clear();
+
     display.mostra(lbPoligonos);
     display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
 }
@@ -71,40 +84,40 @@ void __fastcall TfrmPrincipal::Image1MouseMove(
 }
 //---------------------------------------------------------------------------
 void __fastcall TfrmPrincipal::Image1MouseDown(
-	TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y)
+    TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-	if(isCircunferencia){
-			inicia = false;
-			isCircunferencia = false;
+    if (isCircunferencia) {
+        inicia = false;
+        isCircunferencia = false;
 
-			pol.id = contId++;
-			pol.tipo = 'C';
+        pol.id = contId++;
+        pol.tipo = 'C';
 
-			aux.x = xVp2W(X, mundo, vp);
-			aux.y = yVp2W(Y, mundo, vp);
-			pol.desenhaCircunferencia(Image1->Canvas, mundo, vp, aux.x, aux.y, raio);
-			display.poligonos.push_back(pol);
-			display.mostra(lbPoligonos);
-			display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
-			pol.pontos.clear();
-	}
-	else if(inicia) {
-		if (Button == mbRight) {
-			inicia = false;
-			pol.id = contId++;
-			pol.tipo = 'P';
-			display.poligonos.push_back(pol);
-			display.mostra(lbPoligonos);
-			display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
-			pol.pontos.clear();
-		} else {
-			aux.x = xVp2W(X, mundo, vp);
-			aux.y = yVp2W(Y, mundo, vp);
-			pol.pontos.push_back(aux);
-			pol.mostra(lbxPontos);
-			pol.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
-		}
-	}
+        aux.x = xVp2W(X, mundo, vp);
+        aux.y = yVp2W(Y, mundo, vp);
+        pol.desenhaCircunferencia(
+            Image1->Canvas, mundo, vp, aux.x, aux.y, raio);
+        display.poligonos.push_back(pol);
+        display.mostra(lbPoligonos);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+        pol.pontos.clear();
+    } else if (inicia) {
+        if (Button == mbRight) {
+            inicia = false;
+            pol.id = contId++;
+            pol.tipo = 'P';
+            display.poligonos.push_back(pol);
+            display.mostra(lbPoligonos);
+            display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+            pol.pontos.clear();
+        } else {
+            aux.x = xVp2W(X, mundo, vp);
+            aux.y = yVp2W(Y, mundo, vp);
+            pol.pontos.push_back(aux);
+            pol.mostra(lbxPontos);
+            pol.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+        }
+    }
 }
 //---------------------------------------------------------------------------
 
@@ -212,4 +225,119 @@ void __fastcall TfrmPrincipal::btnCircunferenciaClick(TObject* Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TfrmPrincipal::btnTranslacao2DClick(TObject* Sender)
+{
+    if (lbPoligonos->ItemIndex > 1) {
+        UnicodeString usNovoX, usNovoY;
+        double x, y;
+
+        InputQuery("Digite o movimento de x", "x: ", usNovoX);
+        InputQuery("Digite o movimento de y", "y: ", usNovoY);
+
+        x = StrToFloat(usNovoX);
+        y = StrToFloat(usNovoY);
+
+        display.poligonos[lbPoligonos->ItemIndex].translacao(x, y);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+    } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
+        ShowMessage("Não é possivel transladar o eixo");
+    } else {
+        ShowMessage("Selecione um poligono primeiro");
+    }
+}
+
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnEscalonamentoClick(TObject* Sender)
+{
+    if (lbPoligonos->ItemIndex > 1) {
+        UnicodeString usNovoX, usNovoY;
+        double x, y;
+
+        InputQuery("Digite o escalonamento de x", "x: ", usNovoX);
+        InputQuery("Digite o escalonamento de y", "y: ", usNovoY);
+
+        x = StrToFloat(usNovoX);
+        y = StrToFloat(usNovoY);
+
+        display.poligonos[lbPoligonos->ItemIndex].escalonamento(x, y);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+    } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
+        ShowMessage("Não é possivel escalonar o eixo");
+    } else {
+        ShowMessage("Selecione um poligono primeiro");
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnRotacaoClick(TObject* Sender)
+{
+    if (lbPoligonos->ItemIndex > 1) {
+        UnicodeString usGrau;
+        double grau;
+
+        InputQuery("Digite o grau de rotação", "grau: ", usGrau);
+
+        grau = StrToFloat(usGrau);
+
+        display.poligonos[lbPoligonos->ItemIndex].rotacao(grau);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+    } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
+        ShowMessage("Não é possivel rotacionar o eixo");
+    } else {
+        ShowMessage("Selecione um poligono primeiro");
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnReflexaoClick(TObject* Sender)
+{
+    if (lbPoligonos->ItemIndex > 1) {
+        UnicodeString usReflexaoX, usReflexaoY;
+        double x, y;
+
+        InputQuery("Digite um número",
+            " Digite 1 se você quer reflexão em x \n Digite qualquer outro número se não quiser: ",
+            usReflexaoX);
+        InputQuery("Digite um número",
+            "Digite 1 se você quer reflexão em y \n Digite qualquer outro número se não quiser: ",
+            usReflexaoY);
+
+        x = StrToFloat(usReflexaoX);
+        y = StrToFloat(usReflexaoY);
+
+        display.poligonos[lbPoligonos->ItemIndex].reflexao(x, y);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+    } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
+        ShowMessage("Não é possivel fazer reflexão no eixo");
+    } else {
+        ShowMessage("Selecione um poligono primeiro");
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnClippingClick(TObject* Sender)
+{
+	int* contador = &contId;
+	display.clipping(clipping, &contador);
+	display.mostra(lbPoligonos);
+	display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnCasteljauClick(TObject* Sender)
+{
+	if (display.poligonos[lbPoligonos->ItemIndex].qtdPontos() == 3 &&
+		display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
+	{
+		pol.id = contId++;
+		pol.tipo = 'B';
+		pol.casteljau(display.poligonos[lbPoligonos->ItemIndex]);
+		display.poligonos.push_back(pol);
+
+    } else {
+        ShowMessage("Selecione um poligono com 3 pontos");
+    }
+}
+//---------------------------------------------------------------------------
 
