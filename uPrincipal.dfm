@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'frmPrincipal'
-  ClientHeight = 629
-  ClientWidth = 1136
+  ClientHeight = 628
+  ClientWidth = 1132
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -338,5 +338,6 @@ object frmPrincipal: TfrmPrincipal
     Margins.Bottom = 4
     Caption = 'Hermite'
     TabOrder = 24
+    OnClick = btnHermiteClick
   end
 end

@@ -308,50 +308,93 @@ Ponto Poligono::calculaInterseccao(
     } else if (cohen & 1) {
         pontoAux.x = clipping.xMin;
         pontoAux.y = y + m * (clipping.xMin - x);
-	} else if (cohen & 2) {
-		pontoAux.x = clipping.xMax;
-		pontoAux.y = y + m * (clipping.xMax - x);
-	}
+    } else if (cohen & 2) {
+        pontoAux.x = clipping.xMax;
+        pontoAux.y = y + m * (clipping.xMax - x);
+    }
 
-	return pontoAux;
+    return pontoAux;
 }
 
 void Poligono::casteljau(Poligono** pol)
 {
-	Ponto p0 = (*pol)->pontos[0], p1 = (*pol)->pontos[1],
-		  p2 = (*pol)->pontos[2];
+    Ponto p0 = (*pol)->pontos[0], p1 = (*pol)->pontos[1],
+          p2 = (*pol)->pontos[2];
 
-	pontos.push_back(p0);
+    pontos.push_back(p0);
 
-	casteljauRecursivo(p0, p1, p2);
+    casteljauRecursivo(p0, p1, p2);
 }
 
 void Poligono::casteljauRecursivo(Ponto p0, Ponto p1, Ponto p2)
 {
-	double dx, dy, diferenca;
-	dx = pow((p2.x - p0.x), 2);
-	dy = pow((p2.y - p0.y), 2);
-	diferenca = sqrt(dx + dy);
+    double dx, dy, diferenca;
+    dx = pow((p2.x - p0.x), 2);
+    dy = pow((p2.y - p0.y), 2);
+    diferenca = sqrt(dx + dy);
 
-	if (diferenca < 1) {
-		pontos.push_back(p2);
-	}
+    if (diferenca < 1) {
+        pontos.push_back(p2);
+    }
 
-	else
-	{
-		Ponto a, b, c;
-		a = calculaPontoMedio(p0, p1);
-		b = calculaPontoMedio(p1, p2);
-		c = calculaPontoMedio(a, b);
+    else
+    {
+        Ponto a, b, c;
+        a = calculaPontoMedio(p0, p1);
+        b = calculaPontoMedio(p1, p2);
+        c = calculaPontoMedio(a, b);
 
-		casteljauRecursivo(p0, a, b);
-		casteljauRecursivo(b, c, p2);
-	}
+        casteljauRecursivo(p0, a, c);
+        casteljauRecursivo(c, b, p2);
+    }
 }
 
+void Poligono::hermite(Poligono** pol)
+{
+    Ponto aux;
+    double matrizHermite[4][4] = { { 2, -2, 1, 1 }, { -3, 3, -2, -1 },
+        { 0, 0, 1, 0 }, { 1, 0, 0, 0 } };
+
+    double vetorGeometriaX[4];
+    vetorGeometriaX[0] = (*pol)->pontos[0].x;
+    vetorGeometriaX[1] = (*pol)->pontos[3].x;
+    vetorGeometriaX[2] = (*pol)->pontos[1].x - (*pol)->pontos[0].x;
+    vetorGeometriaX[3] = (*pol)->pontos[3].x - (*pol)->pontos[2].x;
+
+    double vetorGeometriaY[4];
+    vetorGeometriaY[0] = (*pol)->pontos[0].y;
+    vetorGeometriaY[1] = (*pol)->pontos[3].y;
+    vetorGeometriaY[2] = (*pol)->pontos[1].y - (*pol)->pontos[0].y;
+    vetorGeometriaY[3] = (*pol)->pontos[3].y - (*pol)->pontos[2].y;
+
+    double coeficienteX[4];
+    double coeficienteY[4];
+    double arrayT[4];
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            coeficienteX[j] += matrizHermite[j][i] * vetorGeometriaX[j];
+            coeficienteY[j] += matrizHermite[j][i] * vetorGeometriaY[j];
+        }
+    }
+
+    for (double t = 0; t < 1; t += 0.01) {
+        arrayT[0] = pow(t, 3);
+        arrayT[1] = pow(t, 2);
+        arrayT[2] = t;
+        arrayT[3] = 1;
+
+		for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+				aux.x += arrayT[i] * coeficienteX[j];
+                aux.y += arrayT[i] * coeficienteY[j];
+            }
+        }
+		pontos.push_back(aux);
+    }
+}
 Ponto Poligono::calculaPontoMedio(Ponto a, Ponto b)
 {
-	return Ponto((a.x + b.x) / 2, (a.y + b.y) / 2);
+    return Ponto((a.x + b.x) / 2, (a.y + b.y) / 2);
 }
 
 AnsiString Poligono::toString()

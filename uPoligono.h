@@ -33,16 +33,16 @@ class Poligono
     void reflexao(int x, int y);
     double calcularCentroPoligonoX();
     double calcularCentroPoligonoY();
- 
+
     void casteljau(Poligono** pol);
-	void casteljauRecursivo(Ponto p0, Ponto p1, Ponto p2);
+    void casteljauRecursivo(Ponto p0, Ponto p1, Ponto p2);
+
+    void hermite(Poligono** pol);
 
     Ponto calculaPontoMedio(Ponto a, Ponto b);
-	void clipping(Janela clipping, Poligono** pol);
-	Ponto calculaInterseccao(
-		Janela clipping, int cohen, int x, int y, double m);
-
-
+    void clipping(Janela clipping, Poligono** pol);
+    Ponto calculaInterseccao(
+        Janela clipping, int cohen, int x, int y, double m);
 };
 //---------------------------------------------------------------------------
 #endif

@@ -68,6 +68,7 @@ __published:	// IDE-managed Components
 	void __fastcall btnReflexaoClick(TObject *Sender);
 	void __fastcall btnClippingClick(TObject *Sender);
 	void __fastcall btnCasteljauClick(TObject *Sender);
+	void __fastcall btnHermiteClick(TObject *Sender);
 
 private:	// User declarations
 public:		// User declarations
