@@ -367,28 +367,27 @@ void Poligono::hermite(Poligono** pol)
     vetorGeometriaY[2] = (*pol)->pontos[1].y - (*pol)->pontos[0].y;
     vetorGeometriaY[3] = (*pol)->pontos[3].y - (*pol)->pontos[2].y;
 
-    double coeficienteX[4];
-    double coeficienteY[4];
+	double coeficienteX[4] = {0,0,0,0};
+	double coeficienteY[4] = {0,0,0,0};
+
     double arrayT[4];
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
-            coeficienteX[j] += matrizHermite[j][i] * vetorGeometriaX[j];
-            coeficienteY[j] += matrizHermite[j][i] * vetorGeometriaY[j];
-        }
+			coeficienteX[i] += matrizHermite[i][j] * vetorGeometriaX[j];
+			coeficienteY[i] += matrizHermite[i][j] * vetorGeometriaY[j];
+		}
     }
 
-    for (double t = 0; t < 1; t += 0.01) {
+	for (double t = 0; t <= 1; t += 0.01) {
         arrayT[0] = pow(t, 3);
         arrayT[1] = pow(t, 2);
         arrayT[2] = t;
         arrayT[3] = 1;
 
 		for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-				aux.x += arrayT[i] * coeficienteX[j];
-                aux.y += arrayT[i] * coeficienteY[j];
-            }
-        }
+				aux.x += arrayT[i] * coeficienteX[i];
+				aux.y += arrayT[i] * coeficienteY[i];
+		}
 		pontos.push_back(aux);
     }
 }
