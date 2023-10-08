@@ -38,6 +38,7 @@ class Poligono
     void casteljauRecursivo(Ponto p0, Ponto p1, Ponto p2);
 
     void hermite(Poligono** pol);
+	void bezier(Poligono** pol);
 
     Ponto calculaPontoMedio(Ponto a, Ponto b);
     void clipping(Janela clipping, Poligono** pol);

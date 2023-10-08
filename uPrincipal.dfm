@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'frmPrincipal'
-  ClientHeight = 628
-  ClientWidth = 1132
+  ClientHeight = 619
+  ClientWidth = 1126
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -313,6 +313,7 @@ object frmPrincipal: TfrmPrincipal
     Margins.Bottom = 4
     Caption = 'B'#233'zier'
     TabOrder = 22
+    OnClick = btnBezierClick
   end
   object btnCasteljau: TButton
     Left = 614
