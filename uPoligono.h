@@ -39,6 +39,7 @@ class Poligono
 
     void hermite(Poligono** pol);
 	void bezier(Poligono** pol);
+	void bSpline(Poligono** pol);
 
     Ponto calculaPontoMedio(Ponto a, Ponto b);
     void clipping(Janela clipping, Poligono** pol);

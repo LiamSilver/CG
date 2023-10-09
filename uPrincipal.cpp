@@ -371,7 +371,7 @@ void __fastcall TfrmPrincipal::btnHermiteClick(TObject *Sender)
 
 void __fastcall TfrmPrincipal::btnBezierClick(TObject *Sender)
 {
-      if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
+	  if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
 		display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
 	{
 		Poligono* polAux = new Poligono();
@@ -389,6 +389,28 @@ void __fastcall TfrmPrincipal::btnBezierClick(TObject *Sender)
 		ShowMessage("Selecione um poligono com 4 pontos");
 	}
 
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnBsplineClick(TObject *Sender)
+{
+        if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
+		display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
+	{
+		Poligono* polAux = new Poligono();
+		polAux = &display.poligonos[lbPoligonos->ItemIndex];
+		pol.id = contId++;
+		pol.tipo = 'S';
+		pol.bSpline(&polAux);
+		display.poligonos.push_back(pol);
+		pol.pontos.clear();
+
+		display.mostra(lbPoligonos);
+		display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+
+	} else {
+		ShowMessage("Selecione um poligono com 4 pontos");
+	}
 }
 //---------------------------------------------------------------------------
 

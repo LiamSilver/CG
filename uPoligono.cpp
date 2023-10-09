@@ -352,52 +352,55 @@ void Poligono::casteljauRecursivo(Ponto p0, Ponto p1, Ponto p2)
 void Poligono::hermite(Poligono** pol)
 {
     Ponto aux;
-    //	double matrizHermite[4][4] = { { 2, -2, 1, 1 }, { -3, 3, -2, -1 },
-    //		{ 0, 0, 1, 0 }, { 1, 0, 0, 0 } };
+    double matrizHermite[4][4] = { { 2, -2, 1, 1 }, { -3, 3, -2, -1 },
+        { 0, 0, 1, 0 }, { 1, 0, 0, 0 } };
 
     double vetorGeometriaX[4] = { 0, 0, 0, 0 };
     vetorGeometriaX[0] = (*pol)->pontos[0].x;
     vetorGeometriaX[1] = (*pol)->pontos[3].x;
-    vetorGeometriaX[2] = (*pol)->pontos[1].x - (*pol)->pontos[0].x;
-    vetorGeometriaX[3] = (*pol)->pontos[3].x - (*pol)->pontos[2].x;
+	vetorGeometriaX[2] = 3*((*pol)->pontos[1].x - (*pol)->pontos[0].x);
+	vetorGeometriaX[3] = 3*((*pol)->pontos[3].x - (*pol)->pontos[2].x);
 
-    double vetorGeometriaY[4] = { 0, 0, 0, 0 };
-    vetorGeometriaY[0] = (*pol)->pontos[0].y;
-    vetorGeometriaY[1] = (*pol)->pontos[3].y;
-    vetorGeometriaY[2] = (*pol)->pontos[1].y - (*pol)->pontos[0].y;
-    vetorGeometriaY[3] = (*pol)->pontos[3].y - (*pol)->pontos[2].y;
+	double vetorGeometriaY[4] = { 0, 0, 0, 0 };
+	vetorGeometriaY[0] = (*pol)->pontos[0].y;
+	vetorGeometriaY[1] = (*pol)->pontos[3].y;
+	vetorGeometriaY[2] = 3*((*pol)->pontos[1].y - (*pol)->pontos[0].y);
+	vetorGeometriaY[3] = 3*((*pol)->pontos[3].y - (*pol)->pontos[2].y);
 
-    //    double coeficienteX[4];
-    //    double coeficienteY[4];
+	double coeficienteX[4];
+	double coeficienteY[4];
 
-    //    for (int i = 0; i < 4; i++) {
-    //        coeficienteX[i] = 0;
-    //        coeficienteY[i] = 0;
-    //        for (int j = 0; j < 4; j++) {
-    //            coeficienteX[i] += matrizHermite[i][j] * vetorGeometriaX[j];
-    //            coeficienteY[i] += matrizHermite[i][j] * vetorGeometriaY[j];
-    //        }
-    //    }
+	for (int i = 0; i < 4; i++) {
+		coeficienteX[i] = 0;
+		coeficienteY[i] = 0;
+		for (int j = 0; j < 4; j++) {
+			coeficienteX[i] += matrizHermite[i][j] * vetorGeometriaX[j];
+			coeficienteY[i] += matrizHermite[i][j] * vetorGeometriaY[j];
+		}
+	}
 
-    for (double t = 0; t <= 1; t += 0.01) {
-        double array[4] = { pow(t, 3), pow(t, 2), t, 1 };
+	for (double t = 0; t <= 1; t += 0.01) {
+		double array[4] = { pow(t, 3), pow(t, 2), t, 1 };
 
-        double p1, p2, p3, p4;
-        p1 = 2 * array[0] - 3 * array[1] + 1;
-        p2 = -2 * array[0] + 3 * array[1];
-        p3 = array[0] - 2 * array[1] + array[2];
-        p4 = array[0] - array[2];
-        //		for(int i=0; i<4;i++){
-        //		aux.x += coeficiente X[i] * array[i];
-        //        aux.y += coeficienteY[i] * array[i];
-        //		}
+		aux.x = 0;
+		aux.y = 0;
+		//       double p1, p2, p3, p4;
+		//       p1 = 2 * array[0] - 3 * array[1] + 1;
+		//       p2 = -2 * array[0] + 3 * array[1];
+		//       p3 = array[0] - 2 * array[1] + array[2];
+		//      p4 = array[0] - array[2];
 
-        aux.x = p1 * vetorGeometriaX[0] + p2 * vetorGeometriaX[1] +
-                p3 * vetorGeometriaX[2] + p4 * vetorGeometriaX[3];
-        aux.y = p1 * vetorGeometriaY[0] + p2 * vetorGeometriaY[1] +
-                p3 * vetorGeometriaY[2] + p4 * vetorGeometriaY[3];
-        pontos.push_back(aux);
-    }
+		for (int i = 0; i < 4; i++) {
+			aux.x += coeficienteX[i] * array[i];
+			aux.y += coeficienteY[i] * array[i];
+		}
+
+		//		aux.x = p1 * vetorGeometriaX[0] + p2 * vetorGeometriaX[1] +
+		//				p3 * vetorGeometriaX[2] + p4 * vetorGeometriaX[3];
+		//       aux.y = p1 * vetorGeometriaY[0] + p2 * vetorGeometriaY[1] +
+		//               p3 * vetorGeometriaY[2] + p4 * vetorGeometriaY[3];
+		pontos.push_back(aux);
+	}
 }
 
 void Poligono::bezier(Poligono** pol)
@@ -417,12 +420,11 @@ void Poligono::bezier(Poligono** pol)
 	vetorGeometriaY[3] = (*pol)->pontos[3].y;
 
 	for (double t = 0; t <= 1; t += 0.01) {
-
 		double p1, p2, p3, p4;
-		p1 = pow((1-t),3);
-		p2 = 3*t * pow((1-t),2);
-		p3 = 3*pow(t,2) * (1-t);
-		p4 = pow(t,3);
+		p1 = pow((1 - t), 3);
+		p2 = 3 * t * pow((1 - t), 2);
+		p3 = 3 * pow(t, 2) * (1 - t);
+		p4 = pow(t, 3);
 
 		aux.x = p1 * vetorGeometriaX[0] + p2 * vetorGeometriaX[1] +
 				p3 * vetorGeometriaX[2] + p4 * vetorGeometriaX[3];
@@ -432,6 +434,56 @@ void Poligono::bezier(Poligono** pol)
 	}
 }
 
+void Poligono::bSpline(Poligono** pol)
+{
+	Ponto aux;
+	double coeficienteX[4], coeficienteY[4];
+
+	double vetorGeometriaX[4] = { 0, 0, 0, 0 };
+	vetorGeometriaX[0] = (*pol)->pontos[0].x;
+	vetorGeometriaX[1] = (*pol)->pontos[1].x;
+	vetorGeometriaX[2] = (*pol)->pontos[2].x;
+	vetorGeometriaX[3] = (*pol)->pontos[3].x;
+
+	double vetorGeometriaY[4] = { 0, 0, 0, 0 };
+	vetorGeometriaY[0] = (*pol)->pontos[0].y;
+	vetorGeometriaY[1] = (*pol)->pontos[1].y;
+	vetorGeometriaY[2] = (*pol)->pontos[2].y;
+	vetorGeometriaY[3] = (*pol)->pontos[3].y;
+
+	double matrizBspline[4][4] = { { -1, 3, -3, 1 }, { 3, -6, 3, 0 },
+		{ -3, 0, 3, 0 }, { 1, 4, 1, 0 } };
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			matrizBspline[i][j] /= 1;
+		}
+	}
+
+	for (int i = 0; i < 4; i++) {
+		coeficienteX[i] = 0;
+		coeficienteY[i] = 0;
+
+		for (int j = 0; j < 4; j++) {
+			coeficienteX[i] += vetorGeometriaX[j] * matrizBspline[i][j];
+			coeficienteY[i] += vetorGeometriaX[j] * matrizBspline[i][j];
+		}
+	}
+
+	for (double t = 0; t <= 1; t += 0.01) {
+		double array[4] = { pow(1 - t, 3), 3 * pow(1 - t, 2) * t,
+			3 * (1 - t) * pow(t, 2), pow(t, 3) };
+		aux.x = 0;
+		aux.y = 0;
+
+		for (int i = 0; i < 4; i++) {
+            aux.x += vetorGeometriaX[i] * array[i];
+            aux.y += vetorGeometriaY[i] * array[i];
+        }
+
+        pontos.push_back(aux);
+    }
+}
 Ponto Poligono::calculaPontoMedio(Ponto a, Ponto b)
 {
     return Ponto((a.x + b.x) / 2, (a.y + b.y) / 2);

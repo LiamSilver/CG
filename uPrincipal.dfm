@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'frmPrincipal'
-  ClientHeight = 619
-  ClientWidth = 1126
+  ClientHeight = 610
+  ClientWidth = 1120
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -304,9 +304,9 @@ object frmPrincipal: TfrmPrincipal
   end
   object btnBezier: TButton
     Left = 536
-    Top = 472
-    Width = 81
-    Height = 37
+    Top = 466
+    Width = 129
+    Height = 43
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -316,10 +316,10 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnBezierClick
   end
   object btnCasteljau: TButton
-    Left = 614
-    Top = 472
-    Width = 86
-    Height = 37
+    Left = 656
+    Top = 467
+    Width = 121
+    Height = 42
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -329,10 +329,10 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnCasteljauClick
   end
   object btnHermite: TButton
-    Left = 700
-    Top = 472
-    Width = 77
-    Height = 37
+    Left = 640
+    Top = 505
+    Width = 137
+    Height = 40
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -340,5 +340,18 @@ object frmPrincipal: TfrmPrincipal
     Caption = 'Hermite'
     TabOrder = 24
     OnClick = btnHermiteClick
+  end
+  object btnBspline: TButton
+    Left = 536
+    Top = 503
+    Width = 112
+    Height = 41
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'B-Spline'
+    TabOrder = 25
+    OnClick = btnBsplineClick
   end
 end
