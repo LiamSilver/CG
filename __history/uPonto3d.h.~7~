@@ -1,0 +1,10 @@
+#pragma hdrstop
+//---------------------------------------------------------------------------
+#ifndef uPonto3dH
+#define uPonto3dH
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+class Ponto3d: public Ponto{
+
+};
+#endif

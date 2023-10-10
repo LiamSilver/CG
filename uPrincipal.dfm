@@ -2,7 +2,7 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'frmPrincipal'
-  ClientHeight = 600
+  ClientHeight = 664
   ClientWidth = 1110
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
@@ -356,9 +356,9 @@ object frmPrincipal: TfrmPrincipal
   end
   object btnResetarPoligonos: TButton
     Left = 9
-    Top = 568
+    Top = 560
     Width = 112
-    Height = 31
+    Height = 39
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -366,5 +366,57 @@ object frmPrincipal: TfrmPrincipal
     Caption = 'Resetar Poligonos'
     TabOrder = 26
     OnClick = btnResetarPoligonosClick
+  end
+  object btnLerCubo: TButton
+    Left = 142
+    Top = 560
+    Width = 94
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Ler Cubo'
+    TabOrder = 27
+    OnClick = btnLerCuboClick
+  end
+  object btnLerPiramide: TButton
+    Left = 142
+    Top = 607
+    Width = 94
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Ler Piramide'
+    TabOrder = 28
+    OnClick = btnLerPiramideClick
+  end
+  object btnTranslacao3d: TButton
+    Left = 268
+    Top = 560
+    Width = 94
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Transla'#231#227'o 3D'
+    TabOrder = 29
+    OnClick = btnTranslacao3dClick
+  end
+  object btnEscalonamento3d: TButton
+    Left = 268
+    Top = 607
+    Width = 94
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Escalonamento 3D'
+    TabOrder = 30
+    OnClick = btnEscalonamento3dClick
   end
 end

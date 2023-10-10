@@ -1,0 +1,20 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+#include "uJanela.h"
+#include "uPonto2d.h"
+#include "uPonto.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+
+Ponto() : Ponto2d(){
+
+z=0;
+}
+
+
+AnsiString Ponto::mostra()
+{
+	return "(" + FloatToStr(x) + ", " + FloatToStr(y) + ", " + FloatToStr(z) + ")";
+};

@@ -1,52 +1,30 @@
 //---------------------------------------------------------------------------
 
 #pragma hdrstop
-
 #include "uJanela.h"
+#include "uPonto2d.h"
 #include "uPonto.h"
-
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
-Ponto::Ponto(double nx, double ny)
+Ponto::Ponto() : Ponto2d()
 {
-    x = nx;
-    y = ny;
+    z = 0;
 }
 
-Ponto::Ponto()
+Ponto::Ponto(double dx, double dy) : Ponto2d(dx, dy)
 {
-    x = y = 0;
+    z = 0;
 }
 
-int Ponto::xW2Vp(Janela mundo, Janela vp)
+Ponto::Ponto(double dx, double dy, double dz) : Ponto2d(dx, dy)
 {
-    return ((x - mundo.xMin) / (mundo.xMax - mundo.xMin)) * (vp.xMax - vp.xMin);
-}
-
-int Ponto::yW2Vp(Janela mundo, Janela vp)
-{
-    return (1 - (y - mundo.yMin) / (mundo.yMax - mundo.yMin)) *
-           (vp.yMax - vp.yMin);
-}
-
-int Ponto::calcularCohen(Janela clipping)
-{
-    if (x < clipping.xMin)
-        cohen += 1;
-    else if (x > clipping.xMax)
-        cohen += 2;
-
-    if (y < clipping.yMin)
-        cohen += 4;
-    else if (y > clipping.yMax)
-        cohen += 8;
-
-    return cohen;
+    z = dz;
 }
 
 AnsiString Ponto::mostra()
 {
-    return "(" + FloatToStr(x) + ", " + FloatToStr(y) + ")";
+    return "(" + FloatToStr(x) + ", " + FloatToStr(y) + ", " + FloatToStr(z) +
+           ")";
 };
 

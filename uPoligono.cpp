@@ -155,6 +155,16 @@ void Poligono::translacao(double dx, double dy)
         pontos[i].y += dy;
     }
 }
+
+void Poligono::translacao(double dx, double dy, double dz)
+{
+    for (int i = 0; i < pontos.size(); i++) {
+        pontos[i].x += dx;
+        pontos[i].y += dy;
+        pontos[i].z += dz;
+    }
+}
+
 void Poligono::escalonamento(double sx, double sy)
 {
     double dx = calcularCentroPoligonoX();
@@ -166,6 +176,22 @@ void Poligono::escalonamento(double sx, double sy)
     }
     Poligono::translacao(dx, dy);
 }
+
+void Poligono::escalonamento(double sx, double sy, double sz)
+{
+    double dx = calcularCentroPoligonoX();
+    double dy = calcularCentroPoligonoY();
+    double dz = calcularCentroPoligonoZ();
+
+    Poligono::translacao(-dx, -dy, -dz);
+    for (int i = 0; i < pontos.size(); i++) {
+        pontos[i].x *= sx;
+        pontos[i].y *= sy;
+        pontos[i].z *= sz;
+    }
+    Poligono::translacao(dx, dy, dz);
+}
+
 void Poligono::rotacao(double grau)
 {
     double dx = calcularCentroPoligonoX();
@@ -223,6 +249,7 @@ void Poligono::rotacao(double grau)
 
 */
 }
+
 void Poligono::reflexao(int x, int y)
 {
     if (x == 1 && y == 1) {
@@ -240,6 +267,7 @@ void Poligono::reflexao(int x, int y)
         }
     }
 }
+
 double Poligono::calcularCentroPoligonoX()
 {
     double centroX = 0;
@@ -248,6 +276,7 @@ double Poligono::calcularCentroPoligonoX()
     }
     return (centroX / pontos.size());
 }
+
 double Poligono::calcularCentroPoligonoY()
 {
     double centroY = 0;
@@ -255,6 +284,15 @@ double Poligono::calcularCentroPoligonoY()
         centroY += pontos[i].y;
     }
     return (centroY / pontos.size());
+}
+
+double Poligono::calcularCentroPoligonoZ()
+{
+    double centroZ = 0;
+    for (int i = 0; i < pontos.size(); i++) {
+        centroZ += pontos[i].z;
+    }
+    return (centroZ / pontos.size());
 }
 
 void Poligono::clipping(Janela clipping, Poligono** pol)
@@ -266,35 +304,48 @@ void Poligono::clipping(Janela clipping, Poligono** pol)
         int cohen2 = pontos[i + 1].calcularCohen(clipping);
 
         if (cohen1 == 0 && cohen2 == 0) {
-            aux->pontos.push_back(pontos[i]);
-            aux->pontos.push_back(pontos[i + 1]);
-        } else if ((cohen1 & cohen2) == 0) {
-            double m = (pontos[i + 1].y - pontos[i].y) /
-                       (pontos[i + 1].x - pontos[i].x);
-            double xInterseccao, yInterseccao;
+			if (verificaPonto(pontos[i], aux) == false)
+				aux->pontos.push_back(pontos[i]);
+			if (verificaPonto(pontos[i + 1], aux) == false)
+				aux->pontos.push_back(pontos[i + 1]);
+		} else if ((cohen1 & cohen2) == 0) {
+			double m = (pontos[i + 1].y - pontos[i].y) /
+					   (pontos[i + 1].x - pontos[i].x);
+			double xInterseccao, yInterseccao;
 
-            if (cohen1 == 0) {
-                aux->pontos.push_back(pontos[i]);
-            } else {
-                pontoAux = calculaInterseccao(
-                    clipping, cohen1, pontos[i].x, pontos[i].y, m);
-                //				if (pontoAux.calcularCohen(clipping) == 0)
-                aux->pontos.push_back(pontoAux);
-            }
+			if (cohen1 == 0) {
+				if (verificaPonto(pontos[i], aux) == false)
+					aux->pontos.push_back(pontos[i]);
+			} else {
+				pontoAux = calculaInterseccao(
+					clipping, cohen1, pontos[i].x, pontos[i].y, m);
+				if (Poligono::verificaPonto(pontoAux, aux) == false)
+					aux->pontos.push_back(pontoAux);
+			}
 
-            if (cohen2 == 0) {
-                aux->pontos.push_back(pontos[i + 1]);
-            } else {
-                pontoAux = calculaInterseccao(
-                    clipping, cohen2, pontos[i + 1].x, pontos[i + 1].y, m);
-
-                //                if (pontoAux.calcularCohen(clipping) == 0)
-                aux->pontos.push_back(pontoAux);
-            }
-        }
-    }
+			if (cohen2 == 0) {
+				if (verificaPonto(pontos[i + 1], aux) == false)
+					aux->pontos.push_back(pontos[i + 1]);
+			} else {
+				pontoAux = calculaInterseccao(
+					clipping, cohen2, pontos[i + 1].x, pontos[i + 1].y, m);
+				if (Poligono::verificaPonto(pontoAux, aux) == false)
+					aux->pontos.push_back(pontoAux);
+			}
+		}
+	}
 }
 
+bool Poligono::verificaPonto(Ponto aux, Poligono* pol)
+{
+
+	for (int i = 0; i < (*pol).pontos.size(); i++) {
+        if ((*pol).pontos[i].x == aux.x && (*pol).pontos[i].y == aux.y)
+            return true;
+    }
+
+    return false;
+}
 Ponto Poligono::calculaInterseccao(
     Janela clipping, int cohen, int x, int y, double m)
 {
@@ -395,33 +446,33 @@ void Poligono::hermite(Poligono** pol)
 
 void Poligono::bezier(Poligono** pol)
 {
-	Ponto aux;
+    Ponto aux;
 
-	double vetorGeometriaX[4] = { 0, 0, 0, 0 };
-	vetorGeometriaX[0] = (*pol)->pontos[0].x;
-	vetorGeometriaX[1] = (*pol)->pontos[1].x;
-	vetorGeometriaX[2] = (*pol)->pontos[2].x;
-	vetorGeometriaX[3] = (*pol)->pontos[3].x;
+    double vetorGeometriaX[4] = { 0, 0, 0, 0 };
+    vetorGeometriaX[0] = (*pol)->pontos[0].x;
+    vetorGeometriaX[1] = (*pol)->pontos[1].x;
+    vetorGeometriaX[2] = (*pol)->pontos[2].x;
+    vetorGeometriaX[3] = (*pol)->pontos[3].x;
 
-	double vetorGeometriaY[4] = { 0, 0, 0, 0 };
-	vetorGeometriaY[0] = (*pol)->pontos[0].y;
-	vetorGeometriaY[1] = (*pol)->pontos[1].y;
-	vetorGeometriaY[2] = (*pol)->pontos[2].y;
-	vetorGeometriaY[3] = (*pol)->pontos[3].y;
+    double vetorGeometriaY[4] = { 0, 0, 0, 0 };
+    vetorGeometriaY[0] = (*pol)->pontos[0].y;
+    vetorGeometriaY[1] = (*pol)->pontos[1].y;
+    vetorGeometriaY[2] = (*pol)->pontos[2].y;
+    vetorGeometriaY[3] = (*pol)->pontos[3].y;
 
-	for (double t = 0; t <= 1; t += 0.01) {
-		double p1, p2, p3, p4;
-		p1 = pow((1 - t), 3);
-		p2 = 3 * t * pow((1 - t), 2);
-		p3 = 3 * pow(t, 2) * (1 - t);
-		p4 = pow(t, 3);
+    for (double t = 0; t <= 1; t += 0.01) {
+        double p1, p2, p3, p4;
+        p1 = pow((1 - t), 3);
+        p2 = 3 * t * pow((1 - t), 2);
+        p3 = 3 * pow(t, 2) * (1 - t);
+        p4 = pow(t, 3);
 
-		aux.x = p1 * vetorGeometriaX[0] + p2 * vetorGeometriaX[1] +
-				p3 * vetorGeometriaX[2] + p4 * vetorGeometriaX[3];
-		aux.y = p1 * vetorGeometriaY[0] + p2 * vetorGeometriaY[1] +
-				p3 * vetorGeometriaY[2] + p4 * vetorGeometriaY[3];
-		pontos.push_back(aux);
-	}
+        aux.x = p1 * vetorGeometriaX[0] + p2 * vetorGeometriaX[1] +
+                p3 * vetorGeometriaX[2] + p4 * vetorGeometriaX[3];
+        aux.y = p1 * vetorGeometriaY[0] + p2 * vetorGeometriaY[1] +
+                p3 * vetorGeometriaY[2] + p4 * vetorGeometriaY[3];
+        pontos.push_back(aux);
+    }
 }
 
 void Poligono::bSpline(Poligono** pol)

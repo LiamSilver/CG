@@ -1,0 +1,17 @@
+//---------------------------------------------------------------------------
+
+#ifndef uPontoH
+#define uPontoH
+//---------------------------------------------------------------------------
+
+class Ponto: public Ponto2d{
+	public:
+		double z;
+
+		Ponto(): Ponto2d(){}
+		Ponto(double nx, double ny);
+        Ponto(double nx, double ny, double nz);
+        AnsiString mostra();
+
+};
+#endif

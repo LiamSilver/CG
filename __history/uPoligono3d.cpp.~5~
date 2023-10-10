@@ -1,0 +1,9 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+#include "uJanela.h"
+#include "uPonto3d.h"
+#include "uPoligono.h"
+#include "uPoligono3d.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)

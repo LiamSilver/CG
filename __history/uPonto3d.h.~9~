@@ -1,0 +1,14 @@
+//---------------------------------------------------------------------------
+#ifndef uPonto3dH
+#define uPonto3dH
+//---------------------------------------------------------------------------
+class Ponto3d: public Ponto{
+	public:
+		double x;
+		double y;
+        int cohen = 0;
+	Ponto(double nx, double ny);
+	Ponto();
+
+};
+#endif

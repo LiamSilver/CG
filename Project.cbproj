@@ -142,11 +142,11 @@
         </CppCompile>
         <CppCompile Include="uPonto.cpp">
             <DependentOn>uPonto.h</DependentOn>
-            <BuildOrder>4</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="uPonto3d.cpp">
-            <DependentOn>uPonto3d.h</DependentOn>
             <BuildOrder>7</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="uPonto2d.cpp">
+            <DependentOn>uPonto2d.h</DependentOn>
+            <BuildOrder>4</BuildOrder>
         </CppCompile>
         <CppCompile Include="uPrincipal.cpp">
             <Form>frmPrincipal</Form>

@@ -1,0 +1,18 @@
+//---------------------------------------------------------------------------
+
+#ifndef uPontoH
+#define uPontoH
+#include <System.Classes.hpp>
+//---------------------------------------------------------------------------
+
+class Ponto: public Ponto2d{
+	public:
+		double z;
+
+		Ponto();
+		Ponto(double nx, double ny);
+        Ponto(double nx, double ny, double nz);
+
+
+};
+#endif

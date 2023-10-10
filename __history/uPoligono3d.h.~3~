@@ -1,0 +1,12 @@
+//---------------------------------------------------------------------------
+
+#ifndef uPoligono3dH
+#define uPoligono3dH
+//---------------------------------------------------------------------------
+
+class Poligono3d : public Poligono
+{
+	std::vector<Ponto> pontos;
+};
+#endif
+

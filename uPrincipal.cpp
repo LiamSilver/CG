@@ -7,6 +7,9 @@
 #include "uPoligono.h"
 #include "displayFile.h"
 #include <Dialogs.hpp>
+#include <iostream>
+#include <fstream>
+#include <filesystem>
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -238,6 +241,7 @@ void __fastcall TfrmPrincipal::btnTranslacao2DClick(TObject* Sender)
         y = StrToFloat(usNovoY);
 
         display.poligonos[lbPoligonos->ItemIndex].translacao(x, y);
+        display.mostra(lbPoligonos);
         display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
     } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
         ShowMessage("Não é possivel transladar o eixo");
@@ -250,38 +254,40 @@ void __fastcall TfrmPrincipal::btnTranslacao2DClick(TObject* Sender)
 
 void __fastcall TfrmPrincipal::btnEscalonamentoClick(TObject* Sender)
 {
-    if (lbPoligonos->ItemIndex > 1) {
-        UnicodeString usNovoX, usNovoY;
-        double x, y;
+	if (lbPoligonos->ItemIndex > 1) {
+		UnicodeString usNovoX, usNovoY;
+		double x, y;
 
-        InputQuery("Digite o escalonamento de x", "x: ", usNovoX);
-        InputQuery("Digite o escalonamento de y", "y: ", usNovoY);
+		InputQuery("Digite o escalonamento de x", "x: ", usNovoX);
+		InputQuery("Digite o escalonamento de y", "y: ", usNovoY);
 
-        x = StrToFloat(usNovoX);
-        y = StrToFloat(usNovoY);
+		x = StrToFloat(usNovoX);
+		y = StrToFloat(usNovoY);
 
-        display.poligonos[lbPoligonos->ItemIndex].escalonamento(x, y);
-        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
-    } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
-        ShowMessage("Não é possivel escalonar o eixo");
-    } else {
-        ShowMessage("Selecione um poligono primeiro");
-    }
+		display.poligonos[lbPoligonos->ItemIndex].escalonamento(x, y);
+		display.mostra(lbPoligonos);
+		display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+	} else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
+		ShowMessage("Não é possivel escalonar o eixo");
+	} else {
+		ShowMessage("Selecione um poligono primeiro");
+	}
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TfrmPrincipal::btnRotacaoClick(TObject* Sender)
 {
-    if (lbPoligonos->ItemIndex > 1) {
-        UnicodeString usGrau;
-        double grau;
+	if (lbPoligonos->ItemIndex > 1) {
+		UnicodeString usGrau;
+		double grau;
 
-        InputQuery("Digite o grau de rotação", "grau: ", usGrau);
+		InputQuery("Digite o grau de rotação", "grau: ", usGrau);
 
-        grau = StrToFloat(usGrau);
+		grau = StrToFloat(usGrau);
 
-        display.poligonos[lbPoligonos->ItemIndex].rotacao(grau);
-        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+		display.poligonos[lbPoligonos->ItemIndex].rotacao(grau);
+		display.mostra(lbPoligonos);
+		display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
     } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
         ShowMessage("Não é possivel rotacionar o eixo");
     } else {
@@ -301,7 +307,7 @@ void __fastcall TfrmPrincipal::btnReflexaoClick(TObject* Sender)
             usReflexaoX);
         InputQuery("Digite um número",
             "Digite 1 se você quer reflexão em y \n Digite qualquer outro número se não quiser: ",
-            usReflexaoY);
+			usReflexaoY);
 
         x = StrToFloat(usReflexaoX);
         y = StrToFloat(usReflexaoY);
@@ -336,7 +342,7 @@ void __fastcall TfrmPrincipal::btnCasteljauClick(TObject* Sender)
         pol.tipo = 'A';
         pol.casteljau(&polAux);
         display.poligonos.push_back(pol);
-        pol.pontos.clear();
+		pol.pontos.clear();
 
         display.mostra(lbPoligonos);
         display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
@@ -371,7 +377,7 @@ void __fastcall TfrmPrincipal::btnHermiteClick(TObject* Sender)
 
 void __fastcall TfrmPrincipal::btnBezierClick(TObject* Sender)
 {
-    if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
+	if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
         display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
     {
         Poligono* polAux = new Poligono();
@@ -419,7 +425,133 @@ void __fastcall TfrmPrincipal::btnResetarPoligonosClick(TObject* Sender)
     display.poligonos.erase(
         display.poligonos.begin() + 3, display.poligonos.end());
     display.mostra(lbPoligonos);
+    display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnLerCuboClick(TObject* Sender)
+{
+    double valor;
+    std::ifstream arquivo("../../Cubo.txt");
+
+    if (arquivo.is_open()) {
+        while (arquivo >> valor) {
+            aux.x = valor;
+
+            arquivo >> valor;
+
+            aux.y = valor;
+
+            arquivo >> valor;
+            aux.z = valor;
+
+
+            pol.pontos.push_back(aux);
+        }
+
+        arquivo.close();
+    }
+
+    else
+    {
+        ShowMessage("Não foi possível abrir o arquivo");
+    }
+
+	pol.tipo = 'P';
+	pol.id = contId++;
+
+	display.poligonos.push_back(pol);
+	display.mostra(lbPoligonos);
 	display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+	pol.pontos.clear();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnLerPiramideClick(TObject* Sender)
+{
+	double valor;
+	std::ifstream arquivo("../../Piramide.txt");
+
+	if (arquivo.is_open()) {
+		while (arquivo >> valor) {
+			aux.x = valor;
+
+			arquivo >> valor;
+
+			aux.y = valor;
+
+			arquivo >> valor;
+			aux.z = valor;
+
+			pol.pontos.push_back(aux);
+		}
+
+		arquivo.close();
+	}
+
+	else
+	{
+		ShowMessage("Não foi possível abrir o arquivo");
+	}
+
+	pol.tipo = 'P';
+	pol.id = contId++;
+
+	display.poligonos.push_back(pol);
+	display.mostra(lbPoligonos);
+	display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+    pol.pontos.clear();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnTranslacao3dClick(TObject* Sender)
+{
+    if (lbPoligonos->ItemIndex > 1) {
+        UnicodeString usNovoX, usNovoY, usNovoZ;
+        double x, y, z;
+
+        InputQuery("Digite o movimento de x", "x: ", usNovoX);
+        InputQuery("Digite o movimento de y", "y: ", usNovoY);
+        InputQuery("Digite o movimento de z", "z: ", usNovoZ);
+
+        x = StrToFloat(usNovoX);
+        y = StrToFloat(usNovoY);
+        z = StrToFloat(usNovoZ);
+
+        display.poligonos[lbPoligonos->ItemIndex].translacao(x, y, z);
+        display.mostra(lbPoligonos);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+    } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
+        ShowMessage("Não é possivel transladar o eixo");
+    } else {
+		ShowMessage("Selecione um poligono primeiro");
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnEscalonamento3dClick(TObject *Sender)
+{
+	if (lbPoligonos->ItemIndex > 1) {
+		UnicodeString usNovoX, usNovoY, usNovoZ;
+		double x, y, z;
+
+		InputQuery("Digite o escalonamento de x", "x: ", usNovoX);
+		InputQuery("Digite o escalonamento de y", "y: ", usNovoY);
+		InputQuery("Digite o escalonamento de z", "z: ", usNovoZ);
+
+		x = StrToFloat(usNovoX);
+		y = StrToFloat(usNovoY);
+		z = StrToFloat(usNovoZ);
+
+		display.poligonos[lbPoligonos->ItemIndex].escalonamento(x, y, z);
+		display.mostra(lbPoligonos);
+		display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+	} else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
+		ShowMessage("Não é possivel escalonar o eixo");
+	} else {
+		ShowMessage("Selecione um poligono primeiro");
+	}
+
 }
 //---------------------------------------------------------------------------
 

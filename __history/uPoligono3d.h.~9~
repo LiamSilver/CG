@@ -1,0 +1,20 @@
+//---------------------------------------------------------------------------
+
+#ifndef uPoligono3dH
+#define uPoligono3dH
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Graphics.hpp>
+#include <System.Classes.hpp>
+#include <vector>
+#include <uPonto.cpp>
+#include <cmath>
+
+//---------------------------------------------------------------------------
+
+class Poligono3d : public Poligono
+{
+    public:
+		std::vector<Ponto3d> pontos;
+};
+#endif
+

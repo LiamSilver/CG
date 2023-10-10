@@ -2,25 +2,18 @@
 
 #ifndef uPontoH
 #define uPontoH
-#include <System.Classes.hpp>
+
+#include "uPonto2d.h"
 //---------------------------------------------------------------------------
-class Ponto{
+
+class Ponto: public Ponto2d{
 	public:
-		double x;
-		double y;
-        int cohen = 0;
-	Ponto(double nx, double ny);
-	Ponto();
+		double z;
 
-	int xW2Vp(Janela mundo, Janela vp);
-	int yW2Vp(Janela mundo, Janela vp);
+		Ponto();
+		Ponto(double nx, double ny);
+        Ponto(double nx, double ny, double nz);
+        AnsiString mostra();
 
-    int calcularCohen(Janela clipping);
-	int calcularCohenX(Janela clipping);
-	int calcularCohenY(Janela clipping);
-	AnsiString mostra();
-
-
-    //TranslatarPontos
 };
 #endif
