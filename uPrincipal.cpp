@@ -7,6 +7,8 @@
 #include "uPoligono.h"
 #include "displayFile.h"
 #include <Dialogs.hpp>
+#include "uPonto3d.h"
+#include "uPoligono3d.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -327,90 +329,99 @@ void __fastcall TfrmPrincipal::btnClippingClick(TObject* Sender)
 
 void __fastcall TfrmPrincipal::btnCasteljauClick(TObject* Sender)
 {
-	if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 3 &&
-		display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
-	{
-		Poligono* polAux = new Poligono();
-		polAux = &display.poligonos[lbPoligonos->ItemIndex];
+    if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 3 &&
+        display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
+    {
+        Poligono* polAux = new Poligono();
+        polAux = &display.poligonos[lbPoligonos->ItemIndex];
         pol.id = contId++;
         pol.tipo = 'A';
-		pol.casteljau(&polAux);
+        pol.casteljau(&polAux);
         display.poligonos.push_back(pol);
         pol.pontos.clear();
 
-		display.mostra(lbPoligonos);
+        display.mostra(lbPoligonos);
         display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
 
-	} else {
-		ShowMessage("Selecione um poligono com 3 pontos");
-	}
+    } else {
+        ShowMessage("Selecione um poligono com 3 pontos");
+    }
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TfrmPrincipal::btnHermiteClick(TObject *Sender)
+void __fastcall TfrmPrincipal::btnHermiteClick(TObject* Sender)
 {
-	  if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
-		display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
-	{
-		Poligono* polAux = new Poligono();
-		polAux = &display.poligonos[lbPoligonos->ItemIndex];
-		pol.id = contId++;
-		pol.tipo = 'H';
-		pol.hermite(&polAux);
-		display.poligonos.push_back(pol);
-		pol.pontos.clear();
+    if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
+        display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
+    {
+        Poligono* polAux = new Poligono();
+        polAux = &display.poligonos[lbPoligonos->ItemIndex];
+        pol.id = contId++;
+        pol.tipo = 'H';
+        pol.hermite(&polAux);
+        display.poligonos.push_back(pol);
+        pol.pontos.clear();
 
-		display.mostra(lbPoligonos);
-		display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+        display.mostra(lbPoligonos);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
 
-	} else {
-		ShowMessage("Selecione um poligono com 4 pontos");
-	}
+    } else {
+        ShowMessage("Selecione um poligono com 4 pontos");
+    }
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TfrmPrincipal::btnBezierClick(TObject *Sender)
+void __fastcall TfrmPrincipal::btnBezierClick(TObject* Sender)
 {
-	  if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
-		display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
-	{
-		Poligono* polAux = new Poligono();
-		polAux = &display.poligonos[lbPoligonos->ItemIndex];
-		pol.id = contId++;
-		pol.tipo = 'B';
-		pol.bezier(&polAux);
-		display.poligonos.push_back(pol);
-		pol.pontos.clear();
+    if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
+        display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
+    {
+        Poligono* polAux = new Poligono();
+        polAux = &display.poligonos[lbPoligonos->ItemIndex];
+        pol.id = contId++;
+        pol.tipo = 'B';
+        pol.bezier(&polAux);
+        display.poligonos.push_back(pol);
+        pol.pontos.clear();
 
-		display.mostra(lbPoligonos);
-		display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+        display.mostra(lbPoligonos);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
 
-	} else {
-		ShowMessage("Selecione um poligono com 4 pontos");
-	}
-
+    } else {
+        ShowMessage("Selecione um poligono com 4 pontos");
+    }
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TfrmPrincipal::btnBsplineClick(TObject *Sender)
+void __fastcall TfrmPrincipal::btnBsplineClick(TObject* Sender)
 {
-        if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
-		display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
-	{
-		Poligono* polAux = new Poligono();
-		polAux = &display.poligonos[lbPoligonos->ItemIndex];
-		pol.id = contId++;
-		pol.tipo = 'S';
-		pol.bSpline(&polAux);
-		display.poligonos.push_back(pol);
-		pol.pontos.clear();
+    if (display.poligonos[lbPoligonos->ItemIndex].pontos.size() == 4 &&
+        display.poligonos[lbPoligonos->ItemIndex].tipo != 'E')
+    {
+        Poligono* polAux = new Poligono();
+        polAux = &display.poligonos[lbPoligonos->ItemIndex];
+        pol.id = contId++;
+        pol.tipo = 'S';
+        pol.bSpline(&polAux);
+        display.poligonos.push_back(pol);
+        pol.pontos.clear();
 
-		display.mostra(lbPoligonos);
-		display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+        display.mostra(lbPoligonos);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
 
-	} else {
-		ShowMessage("Selecione um poligono com 4 pontos");
-	}
+    } else {
+        ShowMessage("Selecione um poligono com 4 pontos");
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnResetarPoligonosClick(TObject* Sender)
+{
+    contId = 3;
+    display.poligonos.erase(
+        display.poligonos.begin() + 3, display.poligonos.end());
+    display.mostra(lbPoligonos);
+	display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
 }
 //---------------------------------------------------------------------------
 

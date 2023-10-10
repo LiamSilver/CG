@@ -49,6 +49,7 @@ __published:	// IDE-managed Components
 	TButton *btnCasteljau;
 	TButton *btnHermite;
 	TButton *btnBspline;
+	TButton *btnResetarPoligonos;
 	void __fastcall Image1MouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
 	void __fastcall Image1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
           int X, int Y);
@@ -72,6 +73,7 @@ __published:	// IDE-managed Components
 	void __fastcall btnHermiteClick(TObject *Sender);
 	void __fastcall btnBezierClick(TObject *Sender);
 	void __fastcall btnBsplineClick(TObject *Sender);
+	void __fastcall btnResetarPoligonosClick(TObject *Sender);
 
 private:	// User declarations
 public:		// User declarations

@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'frmPrincipal'
-  ClientHeight = 610
-  ClientWidth = 1120
+  ClientHeight = 601
+  ClientWidth = 1114
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -353,5 +353,18 @@ object frmPrincipal: TfrmPrincipal
     Caption = 'B-Spline'
     TabOrder = 25
     OnClick = btnBsplineClick
+  end
+  object btnResetarPoligonos: TButton
+    Left = 9
+    Top = 568
+    Width = 112
+    Height = 31
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Resetar Poligonos'
+    TabOrder = 26
+    OnClick = btnResetarPoligonosClick
   end
 end

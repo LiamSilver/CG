@@ -456,7 +456,7 @@ void Poligono::bSpline(Poligono** pol)
 
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-			matrizBspline[i][j] /= 1;
+			matrizBspline[i][j] /= 6;
 		}
 	}
 
