@@ -7,8 +7,6 @@
 #include "uPoligono.h"
 #include "displayFile.h"
 #include <Dialogs.hpp>
-#include "uPonto3d.h"
-#include "uPoligono3d.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"

@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'frmPrincipal'
-  ClientHeight = 601
-  ClientWidth = 1114
+  ClientHeight = 600
+  ClientWidth = 1110
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -27,7 +27,7 @@ object frmPrincipal: TfrmPrincipal
     Caption = '( , )'
   end
   object lblPontos: TLabel
-    Left = 536
+    Left = 560
     Top = 11
     Width = 37
     Height = 15
@@ -86,7 +86,7 @@ object frmPrincipal: TfrmPrincipal
     end
   end
   object lbxPontos: TListBox
-    Left = 536
+    Left = 560
     Top = 32
     Width = 241
     Height = 153
@@ -153,7 +153,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnAtualizaMundoClick
   end
   object btnEsquerda: TButton
-    Left = 536
+    Left = 560
     Top = 409
     Width = 97
     Height = 41
@@ -166,7 +166,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnEsquerdaClick
   end
   object btnDireita: TButton
-    Left = 688
+    Left = 712
     Top = 409
     Width = 89
     Height = 41
@@ -179,7 +179,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnDireitaClick
   end
   object btnCima: TButton
-    Left = 626
+    Left = 650
     Top = 371
     Width = 63
     Height = 41
@@ -192,7 +192,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnCimaClick
   end
   object btnBaixo: TButton
-    Left = 626
+    Left = 650
     Top = 409
     Width = 63
     Height = 41
@@ -205,7 +205,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnBaixoClick
   end
   object btnZoomIn: TButton
-    Left = 536
+    Left = 560
     Top = 371
     Width = 97
     Height = 41
@@ -218,7 +218,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnZoomInClick
   end
   object btnZoomOut: TButton
-    Left = 688
+    Left = 712
     Top = 371
     Width = 89
     Height = 41
@@ -231,7 +231,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnZoomOutClick
   end
   object rgTipoReta: TRadioGroup
-    Left = 536
+    Left = 560
     Top = 224
     Width = 241
     Height = 105
@@ -303,7 +303,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnClippingClick
   end
   object btnBezier: TButton
-    Left = 536
+    Left = 560
     Top = 466
     Width = 129
     Height = 43
@@ -316,7 +316,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnBezierClick
   end
   object btnCasteljau: TButton
-    Left = 656
+    Left = 680
     Top = 467
     Width = 121
     Height = 42
@@ -329,7 +329,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnCasteljauClick
   end
   object btnHermite: TButton
-    Left = 640
+    Left = 664
     Top = 505
     Width = 137
     Height = 40
@@ -342,7 +342,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnHermiteClick
   end
   object btnBspline: TButton
-    Left = 536
+    Left = 560
     Top = 503
     Width = 112
     Height = 41
