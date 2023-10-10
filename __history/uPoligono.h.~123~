@@ -28,13 +28,25 @@ class Poligono
     void bresenham(TCanvas* canvas, Janela mundo, Janela vp);
 
     void translacao(double dx, double dy);
-    void escalonamento(double sx, double sy);
-    void rotacao(double grau);
-    void reflexao(int x, int y);
-    double calcularCentroPoligonoX();
-    double calcularCentroPoligonoY();
+	void translacao(double dx, double dy, double dz);
 
-    void casteljau(Poligono** pol);
+	void escalonamento(double sx, double sy);
+	void escalonamento(double sx, double sy, double dz);
+
+	void rotacao(double grau);
+	void rotacao3d(double grau);
+
+	double[][] rotacaoEmX(double radianos);
+	double[][] rotacaoEmY(double radianos);
+	double[][] rotacaoEmZ(double radianos);
+
+	void reflexao(int x, int y);
+
+	double calcularCentroPoligonoX();
+	double calcularCentroPoligonoY();
+    double calcularCentroPoligonoZ();
+
+	void casteljau(Poligono** pol);
     void casteljauRecursivo(Ponto p0, Ponto p1, Ponto p2);
 
     void hermite(Poligono** pol);
@@ -44,7 +56,9 @@ class Poligono
     Ponto calculaPontoMedio(Ponto a, Ponto b);
     void clipping(Janela clipping, Poligono** pol);
     Ponto calculaInterseccao(
-        Janela clipping, int cohen, int x, int y, double m);
+		Janela clipping, int cohen, int x, int y, double m);
+
+	bool verificaPonto(Ponto aux, Poligono* pol);
 };
 //---------------------------------------------------------------------------
 #endif

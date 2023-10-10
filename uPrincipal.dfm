@@ -355,9 +355,9 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnBsplineClick
   end
   object btnResetarPoligonos: TButton
-    Left = 9
-    Top = 560
-    Width = 112
+    Left = 368
+    Top = 607
+    Width = 141
     Height = 39
     Margins.Left = 4
     Margins.Top = 4
@@ -368,9 +368,9 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnResetarPoligonosClick
   end
   object btnLerCubo: TButton
-    Left = 142
+    Left = 9
     Top = 560
-    Width = 94
+    Width = 136
     Height = 39
     Margins.Left = 4
     Margins.Top = 4
@@ -381,9 +381,9 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnLerCuboClick
   end
   object btnLerPiramide: TButton
-    Left = 142
+    Left = 9
     Top = 607
-    Width = 94
+    Width = 136
     Height = 39
     Margins.Left = 4
     Margins.Top = 4
@@ -394,9 +394,9 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnLerPiramideClick
   end
   object btnTranslacao3d: TButton
-    Left = 268
+    Left = 180
     Top = 560
-    Width = 94
+    Width = 149
     Height = 39
     Margins.Left = 4
     Margins.Top = 4
@@ -407,9 +407,9 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnTranslacao3dClick
   end
   object btnEscalonamento3d: TButton
-    Left = 268
+    Left = 180
     Top = 607
-    Width = 94
+    Width = 149
     Height = 39
     Margins.Left = 4
     Margins.Top = 4
@@ -418,5 +418,18 @@ object frmPrincipal: TfrmPrincipal
     Caption = 'Escalonamento 3D'
     TabOrder = 30
     OnClick = btnEscalonamento3dClick
+  end
+  object btnRotacao3d: TButton
+    Left = 368
+    Top = 560
+    Width = 141
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Rota'#231#227'o 3D'
+    TabOrder = 31
+    OnClick = btnRotacao3dClick
   end
 end

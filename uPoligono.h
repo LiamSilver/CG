@@ -34,6 +34,9 @@ class Poligono
 	void escalonamento(double sx, double sy, double dz);
 
 	void rotacao(double grau);
+	void rotacao(double grauX, double grauY, double grauZ);
+
+	void multiplicaMatriz(double matrizA [][4], double matrizB[][4], double resultado[][4]);
 	void reflexao(int x, int y);
 
 	double calcularCentroPoligonoX();

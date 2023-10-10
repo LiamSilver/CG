@@ -241,7 +241,7 @@ void __fastcall TfrmPrincipal::btnTranslacao2DClick(TObject* Sender)
         y = StrToFloat(usNovoY);
 
         display.poligonos[lbPoligonos->ItemIndex].translacao(x, y);
-    display.mostra(lbPoligonos);
+        display.mostra(lbPoligonos);
         display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
     } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
         ShowMessage("Não é possivel transladar o eixo");
@@ -265,7 +265,7 @@ void __fastcall TfrmPrincipal::btnEscalonamentoClick(TObject* Sender)
         y = StrToFloat(usNovoY);
 
         display.poligonos[lbPoligonos->ItemIndex].escalonamento(x, y);
-    display.mostra(lbPoligonos);
+        display.mostra(lbPoligonos);
         display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
     } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
         ShowMessage("Não é possivel escalonar o eixo");
@@ -286,6 +286,7 @@ void __fastcall TfrmPrincipal::btnRotacaoClick(TObject* Sender)
         grau = StrToFloat(usGrau);
 
         display.poligonos[lbPoligonos->ItemIndex].rotacao(grau);
+        display.mostra(lbPoligonos);
         display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
     } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
         ShowMessage("Não é possivel rotacionar o eixo");
@@ -455,6 +456,9 @@ void __fastcall TfrmPrincipal::btnLerCuboClick(TObject* Sender)
         ShowMessage("Não foi possível abrir o arquivo");
     }
 
+    pol.tipo = 'P';
+    pol.id = contId++;
+
     display.poligonos.push_back(pol);
     display.mostra(lbPoligonos);
     display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
@@ -489,6 +493,9 @@ void __fastcall TfrmPrincipal::btnLerPiramideClick(TObject* Sender)
         ShowMessage("Não foi possível abrir o arquivo");
     }
 
+    pol.tipo = 'P';
+    pol.id = contId++;
+
     display.poligonos.push_back(pol);
     display.mostra(lbPoligonos);
     display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
@@ -498,7 +505,7 @@ void __fastcall TfrmPrincipal::btnLerPiramideClick(TObject* Sender)
 
 void __fastcall TfrmPrincipal::btnTranslacao3dClick(TObject* Sender)
 {
-    if (lbPoligonos->ItemIndex > 2) {
+    if (lbPoligonos->ItemIndex > 1) {
         UnicodeString usNovoX, usNovoY, usNovoZ;
         double x, y, z;
 
@@ -518,6 +525,52 @@ void __fastcall TfrmPrincipal::btnTranslacao3dClick(TObject* Sender)
     } else {
         ShowMessage("Selecione um poligono primeiro");
     }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnEscalonamento3dClick(TObject* Sender)
+{
+    if (lbPoligonos->ItemIndex > 1) {
+        UnicodeString usNovoX, usNovoY, usNovoZ;
+        double x, y, z;
+
+        InputQuery("Digite o escalonamento de x", "x: ", usNovoX);
+        InputQuery("Digite o escalonamento de y", "y: ", usNovoY);
+        InputQuery("Digite o escalonamento de z", "z: ", usNovoZ);
+
+        x = StrToFloat(usNovoX);
+        y = StrToFloat(usNovoY);
+        z = StrToFloat(usNovoZ);
+
+        display.poligonos[lbPoligonos->ItemIndex].escalonamento(x, y, z);
+        display.mostra(lbPoligonos);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+    } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
+        ShowMessage("Não é possivel escalonar o eixo");
+    } else {
+        ShowMessage("Selecione um poligono primeiro");
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnRotacao3dClick(TObject* Sender)
+{
+	if (lbPoligonos->ItemIndex > 1) {
+        UnicodeString usGrau;
+        double grau;
+
+        InputQuery("Digite o grau de rotação", "grau: ", usGrau);
+
+        grau = StrToFloat(usGrau);
+
+        display.poligonos[lbPoligonos->ItemIndex].rotacao(grau);
+        display.mostra(lbPoligonos);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+    } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
+        ShowMessage("Não é possivel rotacionar o eixo");
+    } else {
+        ShowMessage("Selecione um poligono primeiro");
+	}
 }
 //---------------------------------------------------------------------------
 

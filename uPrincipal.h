@@ -54,6 +54,7 @@ __published:	// IDE-managed Components
 	TButton *btnLerPiramide;
 	TButton *btnTranslacao3d;
 	TButton *btnEscalonamento3d;
+	TButton *btnRotacao3d;
 	void __fastcall Image1MouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
 	void __fastcall Image1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
           int X, int Y);
@@ -82,6 +83,7 @@ __published:	// IDE-managed Components
 	void __fastcall btnLerPiramideClick(TObject *Sender);
 	void __fastcall btnTranslacao3dClick(TObject *Sender);
 	void __fastcall btnEscalonamento3dClick(TObject *Sender);
+	void __fastcall btnRotacao3dClick(TObject *Sender);
 
 private:	// User declarations
 public:		// User declarations

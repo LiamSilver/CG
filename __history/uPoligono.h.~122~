@@ -34,6 +34,12 @@ class Poligono
 	void escalonamento(double sx, double sy, double dz);
 
 	void rotacao(double grau);
+	void rotacao3d(double grau);
+
+	double[][] rotacaoEmX(double grau);
+	double[][] rotacaoEmY(double grau);
+	double[][] rotacaoEmZ(double grau);
+
 	void reflexao(int x, int y);
 
 	double calcularCentroPoligonoX();
@@ -52,7 +58,7 @@ class Poligono
     Ponto calculaInterseccao(
 		Janela clipping, int cohen, int x, int y, double m);
 
-	bool verificaPonto(Ponto aux, Poligono** pol);
+	bool verificaPonto(Ponto aux, Poligono* pol);
 };
 //---------------------------------------------------------------------------
 #endif
