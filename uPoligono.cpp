@@ -251,86 +251,34 @@ void Poligono::rotacao(double grau)
 */
 }
 
-void Poligono::rotacao(double grauX, double grauY, double grauZ)
+void Poligono::rotacao(double grau, int op)
 {
     double dx = calcularCentroPoligonoX();
     double dy = calcularCentroPoligonoY();
     double dz = calcularCentroPoligonoZ();
 
-    double x, y, z, radianosX, radianosY, radianosZ, qx, qz;
-    radianosX = (grauX * PI) / 180;
-    radianosY = (grauY * PI) / 180;
-    radianosZ = (grauZ * PI) / 180;
+    double x, y, z, radianos;
+    radianos = (grau * PI) / 180;
 
-    double translacaoAoCentro[4][4] = { { 1, 0, 0, 0 }, { 0, 1, 0, 0 },
-        { 0, 0, 1, 0 }, { -dx, -dy, -dz, 1 } };
-
-    double rotacaoX[4][4] = { { 1, 0, 0, 0 },
-        { 0, cos(radianosX), sin(radianosX), 0 },
-        { 0, -sin(radianosX), cos(radianosX), 0 }, { 0, 0, 0, 1 } };
-
-    double rotacaoY[4][4] = { { cos(radianosY), 0, -sin(radianosY), 0 },
-        { 0, 1, 0, 0 }, { sin(radianosY), 0, cos(radianosY), 0 },
-        { 0, 0, 0, 1 } };
-
-    double rotacaoZ[4][4] = { { cos(radianosZ), sin(radianosZ), 0, 0 },
-        { -sin(radianosZ), cos(radianosZ), 0, 0 }, { 0, 0, 1, 0 },
-        { 0, 0, 0, 1 } };
-
-    double rotacaoZZ[4][4] = { { cos(-radianosZ), sin(-radianosZ), 0, 0 },
-        { -sin(-radianosZ), cos(-radianosZ), 0, 0 }, { 0, 0, 1, 0 },
-        { 0, 0, 0, 1 } };
-
-    double rotacaoXX[4][4] = { { 1, 0, 0, 0 },
-        { 0, cos(-radianosX), sin(-radianosX), 0 },
-        { 0, -sin(-radianosX), cos(-radianosX), 0 }, { 0, 0, 0, 1 } };
-
-    double translacaoAPosicaoOriginal[4][4] = { { 1, 0, 0, 0 }, { 0, 1, 0, 0 },
-        { 0, 0, 1, 0 }, { dx, dy, dz, 1 } };
-
-    double resultado[4][4];
-
-    for (int index = 0; index < pontos.size(); index++) {
-        double arrayPonto[4] = { pontos[index].x, pontos[index].y,
-            pontos[index].z, 1 };
-        double arrayAux[4] = {};
-        multiplicaMatriz(translacaoAoCentro, rotacaoX, resultado);
-
-		multiplicaMatriz(resultado, rotacaoZ, resultado);
-
-		multiplicaMatriz(resultado, rotacaoY, resultado);
-		multiplicaMatriz(resultado, rotacaoZZ, resultado);
-		multiplicaMatriz(resultado, rotacaoXX, resultado);
-
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-            ShowMessage(resultado[i][j]);
-			}
-		}
-		multiplicaMatriz(resultado, translacaoAPosicaoOriginal, resultado);
-
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				arrayAux[i] += resultado[j][i] * arrayPonto[j];
-			}
-		}
-        pontos[index].x = arrayAux[0] / arrayAux[3];
-        pontos[index].y = arrayAux[1] / arrayAux[3];
-        pontos[index].z = arrayAux[2] / arrayAux[3];
-    }
-}
-
-void Poligono::multiplicaMatriz(
-    double matrizA[][4], double matrizB[][4], double resultado[][4])
-{
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            resultado[i][j] = 0;
-            for (int k = 0; k < 4; k++) {
-                resultado[i][j] += matrizA[i][k] * matrizB[k][j];
-            }
+    if (op == 1) {
+        translacao(-dx, -dy, -dz);
+        for (int i = 0; i < pontos.size(); i++) {
+            y = pontos[i].y;
+            z = pontos[i].z;
+            pontos[i].y = y * cos(radianos) - z * sin(radianos);
+            pontos[i].z = y * sin(radianos) + z * cos(radianos);
         }
-    }
+        translacao(dx, dy, dz);
+	} else {
+		translacao(-dx, -dy, -dz);
+		for (int i = 0; i < pontos.size(); i++) {
+			x = pontos[i].x;
+			z = pontos[i].z;
+			pontos[i].x = z * sin(radianos) + x * cos(radianos);
+			pontos[i].z = z * cos(radianos) - x * sin(radianos);
+		}
+		translacao(dx, dy, dz);
+	}
 }
 
 void Poligono::reflexao(int x, int y)
@@ -391,6 +339,7 @@ void Poligono::clipping(Janela clipping, Poligono** pol)
                 aux->pontos.push_back(pontos[i]);
             if (verificaPonto(pontos[i + 1], aux) == false)
                 aux->pontos.push_back(pontos[i + 1]);
+
         } else if ((cohen1 & cohen2) == 0) {
             double m = (pontos[i + 1].y - pontos[i].y) /
                        (pontos[i + 1].x - pontos[i].x);

@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'frmPrincipal'
-  ClientHeight = 664
-  ClientWidth = 1110
+  ClientHeight = 663
+  ClientWidth = 1106
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -280,7 +280,7 @@ object frmPrincipal: TfrmPrincipal
     Top = 467
     Width = 121
     Height = 42
-    Caption = 'Rota'#231#227'o'
+    Caption = 'Rota'#231#227'o em Z'
     TabOrder = 19
     OnClick = btnRotacaoClick
   end
@@ -355,7 +355,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnBsplineClick
   end
   object btnResetarPoligonos: TButton
-    Left = 368
+    Left = 560
     Top = 607
     Width = 141
     Height = 39
@@ -419,7 +419,7 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 30
     OnClick = btnEscalonamento3dClick
   end
-  object btnRotacao3d: TButton
+  object btnRotacaoX: TButton
     Left = 368
     Top = 560
     Width = 141
@@ -428,8 +428,21 @@ object frmPrincipal: TfrmPrincipal
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    Caption = 'Rota'#231#227'o 3D'
+    Caption = 'Rota'#231#227'o em X'
     TabOrder = 31
-    OnClick = btnRotacao3dClick
+    OnClick = btnRotacaoXClick
+  end
+  object btnRotacaoY: TButton
+    Left = 368
+    Top = 607
+    Width = 141
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Rota'#231#227'o em Y'
+    TabOrder = 32
+    OnClick = btnRotacaoYClick
   end
 end

@@ -553,28 +553,45 @@ void __fastcall TfrmPrincipal::btnEscalonamento3dClick(TObject* Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TfrmPrincipal::btnRotacao3dClick(TObject* Sender)
+void __fastcall TfrmPrincipal::btnRotacaoXClick(TObject* Sender)
 {
-	if (lbPoligonos->ItemIndex > 1) {
-		UnicodeString usGrauX, usGrauY, usGrauZ;
-		double grauX, grauY, grauZ;
+    if (lbPoligonos->ItemIndex > 1) {
+        UnicodeString usGrau;
+        double grau;
 
-		InputQuery("Digite o grau de rotação em X", "grau: ", usGrauX);
-		InputQuery("Digite o grau de rotação em Y", "grau: ", usGrauY);
-		InputQuery("Digite o grau de rotação em Z", "grau: ", usGrauZ);
+        InputQuery("Digite o grau de rotação em X", "grau: ", usGrau);
 
-		grauX = StrToFloat(usGrauX);
-		grauY = StrToFloat(usGrauY);
-		grauZ = StrToFloat(usGrauZ);
+        grau = StrToFloat(usGrau);
 
-		display.poligonos[lbPoligonos->ItemIndex].rotacao(grauX, grauY, grauZ);
-		display.mostra(lbPoligonos);
+        display.poligonos[lbPoligonos->ItemIndex].rotacao(grau, 1);
+        display.mostra(lbPoligonos);
         display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
     } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
         ShowMessage("Não é possivel rotacionar o eixo");
     } else {
         ShowMessage("Selecione um poligono primeiro");
-	}
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnRotacaoYClick(TObject* Sender)
+{
+    if (lbPoligonos->ItemIndex > 1) {
+		UnicodeString usGrau;
+        double grau;
+
+        InputQuery("Digite o grau de rotação em Y", "grau: ", usGrau);
+
+        grau = StrToFloat(usGrau);
+
+        display.poligonos[lbPoligonos->ItemIndex].rotacao(grau, 2);
+        display.mostra(lbPoligonos);
+        display.desenha(Image1->Canvas, mundo, vp, rgTipoReta->ItemIndex);
+    } else if (lbPoligonos->ItemIndex == 0 || lbPoligonos->ItemIndex == 1) {
+        ShowMessage("Não é possivel rotacionar o eixo");
+    } else {
+        ShowMessage("Selecione um poligono primeiro");
+    }
 }
 //---------------------------------------------------------------------------
 
